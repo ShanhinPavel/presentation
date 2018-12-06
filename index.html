@@ -1,0 +1,349 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section class='slide-1'>
+            <h2>MODULES</h2>
+            <aside class="notes">
+              1.Module definition<br>
+              2.When you can use it
+            </aside>
+				</section>
+				<section class='slide-2'>
+						<h3>ADVANTAGES</h3>
+						<ul>
+              <li class='fragment' data-fragment-index='0'>Maintainability</li>
+              <li class='fragment' data-fragment-index='1'>Reusability</li>
+							<li class='fragment' data-fragment-index='2'>Encapsulating</li>
+            </ul>
+            <aside class="notes">
+              1. Maintainability.<br>
+                 If we want to rewrite a module we can change it don't disturb
+                 general code.<br>
+              2. Reusability. <br>
+                 We can reuse previously written module in other applications or projects.<br>
+              3. Encapsulation.<br>
+                 Every module has own scope and provides only an API. We can be certain that<br> 
+                 declarations inside of module don't fall into global scope.
+            </aside>
+        </section>
+        <section class='slide-3'>
+            <h3>IMPLEMENTATION OF MODULES</h3>
+            <ul>
+              <li class='fragment' data-fragment-index='0'>Patterns</li>
+              <li class='fragment' data-fragment-index='1'>The ready implementation</li>
+            </ul>
+            <aside class="notes">
+              Patterns: Incapsulation code by vanila JavaScript.<br>
+              TRI: Create modules by using invented things
+            </aside>
+        </section>
+        <section class='slide-4'>
+          <section class='slide-4-1'>
+            <h3>PATTERNS</h3>
+            <ul>
+              <li class='fragment' data-fragment-index='0'>Immediately Invoked Function</li>
+              <li class='fragment' data-fragment-index='1'>Revealing module</li>
+            </ul>
+            <aside class="notes">
+            1.The function which is called immediately<br>
+            2.Revealing Module.<br>
+            We assign value of IIFE to variable. IIFE returns object with properties and<br> 
+            methods which we can use.
+          </aside>
+          </section>
+          <section class="slide-4-2">
+            <h3>Immediately Invoked Function</h3>
+            <pre>
+              <code data-trim data-noescape>
+                (function immediately() {
+                  alert('Hello listeners!'); // Hello listeners
+                })();
+              </code>
+            </pre>
+            <aside class="notes">
+                This function is called immediately and does some action.
+            </aside>
+          </section>
+          <section class='slide-4-3'>
+            <h3>Revealing module</h3>
+            <pre>
+              <code data-trim data-noescape>
+                // We assign value of IIFE to variable
+                let animal = function() {
+                  return {
+                    nameOfAnimal: 'tiger';
+                    getSound: function() {
+                      return "Roar!";
+                    }
+                  }
+                }();
+                
+                // Use returned object
+                animal.nameOfAnimal; // Tiger
+                animal.getSound(); //Roar
+              </code>
+            </pre>
+            <aside class="notes">
+                We assign value of IIFE to variable. IIFE returns object with properties and
+                methods which we can use.
+              </aside>
+          </section>
+        </section>
+
+        <section class="slide-5">
+          <section class="slide-5-1">
+              <h3>THE READY IMPLEMENTATION OF MODULES</h3>
+              <ul>
+                <li>AMD (Asynchronus Module Definition)</li>
+                <li>CommonJS</li>
+                <li>Modules ECMAScript 2015</li>
+              </ul>
+              <aside class="notes">
+                  1.Where it mainly uses<br>
+                  2.What advantages<br>
+                  3.How it use
+                </aside>
+          </section>
+          <section class='slide-5-2' style='padding: 0'>
+            <h3 style='margin-bottom: 0'>AMD (Asynchronus Module Definition)</h3>
+            <pre>
+              <code data-trim data-noescape>
+                // Export
+                //myFirstModule.js
+                define('myFirstModule',
+                  ['foo', 'bar'],
+                // dependencies foo and bar give into function
+                  function(foo, bar) {
+                // create module
+                    var myModule = {
+                      doStuff: function() {
+                        console.log('Hi listeners!');
+                      }
+                    }
+                // return module
+                    return myModule;
+                  });
+
+                // Import 
+                // index.js
+                require('myfirsModule', function(myfirstModule) {
+                  myfirstModule.doStuff();
+                });
+              </code>
+            </pre>
+            <aside class="notes">
+                It uses function 'define' which takes two arguments. First argument is a name of module. Second argument is an array of
+                module's names which are their interfaces. Third argument is a facility function
+                which takes dependencies and creates an instance of module.
+            </aside>
+          </section>
+          <section class='slide-5-3'>
+            <h3>CommonJS</h3>
+            <pre>
+              <code data-trim data-noescape>
+                // CommonJS
+                // export
+                // multiply.js
+                function multiply(a, b) {
+                  return a * b;
+                } 
+                module.exports = multiply;
+              
+                // index.js
+                let multi = require('./multiply');
+                multi.multiply();
+              </code>
+            </pre>
+            <aside class="notes">
+                In the end of the file we point what we need to export.
+                And in the file where we will use that module we call function 'requre' and 
+                get an object with methods and properties which we can use. 
+                AMD and CommonJS won't work without bundlers such as webpack, brunch and other.                            
+            </aside>
+          </section>
+        </section>
+
+        <section class='slide-6'>
+          <section class='slide-6-1'>
+            <h3>MODULES ECMAScript 2015</h3>
+            <aside class="notes">
+                The modules ECMAScript6 has taken advantages from AMD and CommonJS.
+                They have a friendly syntax of CommonJS and asynchrony of AMD.
+                Modules ECMAScript6 can work without additional tools but only in the latest
+                versions of browsers.
+            </aside>
+          </section>
+          <section class='slide-6-2'>
+              <h3>Support modules ECMAScript 2015 by browsers</h3>
+              <img src="./lib/img/caniuse.png" alt="browser supporting" width="1248px" height="438px">
+              <aside class='notes'>
+                  This is a picture which shows what browsers suport them.
+                  Such way, to support in all versions of browsers we have to use bundlers.
+              </aside>
+            </section>
+          <section class='slide-6-3'>
+            <h3>Including modules ECMAScript 2015 in browser</h3>  
+            <pre>
+              <code data-trim>
+                <script type='module'>
+                  import add from './module.js';
+                        
+                  let sum = add(3, 4); // 7
+                </script>
+              </code>
+            </pre>
+            <aside class="notes">
+                We add atribute type='module' inside tag script. Then import module
+                between script tags and use 
+            </aside>
+          </section>
+          <section class='slide-6-4'> 
+            <h3>Export stuffs by writing word export before exporting thing.</h3>
+            <pre>
+              <code data-trim data-noescape>
+                // operations.js
+                export function sum(a, b) {
+                  return a + b;
+                }
+                export function multiply(a, b) {
+                  return a * b;
+                }
+
+                // index.js
+                import { sum, multiply } from './operations';
+                
+                sum(2, 3); // 5
+                myltiply(2, 3) // 6
+              </code>
+            </pre>
+            <aside class="notes">
+                We can export by writing word 'export' before exporting thing.
+            </aside>
+          </section>
+          <section class='slide-6-5'>
+            <h3>Export by writing importing things in the end of the file</h3>
+            <pre>
+              <code data-trim data-noescape>
+                // operations.js
+                function sum(a, b) {
+                  return a + b;
+                }
+                function multiply(a, b) {
+                  return a * b;
+                }
+                export { sum, multiply };
+                    
+                // index.js
+                import { sum, multiply } from './operations';
+                    
+                sum(2, 3); // 5
+                myltiply(2, 3) // 6
+              </code>
+            </pre>
+            <aside class='notes'>
+                We can write the 'export' operator in the end of file and place
+                what we need to export in the curly braces.
+            </aside>
+          </section>
+          <section class='slide-6-6'>
+            <h3>Export with changing names</h3>
+            <pre>
+              <code data-trim data-noescape>
+                // operations.js
+                function sumOfTwoNumbers(a, b) {
+                  return a + b;
+                }
+                function multiplyOfTwoNumbers(a, b) {
+                  return a * b;
+                }
+                export { 
+                  sumOfTwoNumbers as sum, 
+                  multiplyOfTwoNumbers as multi 
+                };
+
+                // index.js
+                import { sum, multi } from './operations';
+                  
+                sum(2, 3); // 5
+                myltiply(2, 3) // 6
+              </code>
+            </pre>
+            <aside class='notes'>
+                In the end of the module we can write word export
+                in curly braces we have to write what we will export and what name 
+                they will have.
+            </aside>
+          </section>
+          <section class='slide-6-7'>
+            <h3>Default export</h3>
+            <pre>
+              <code data-trim data-noescape>
+                // operations.js
+                export default function(a, b) {
+                  return a + b;
+                }
+                // index.js
+                import sum from './operations';
+                  
+                sum(2, 3); // 5
+              </code>
+            </pre>
+            <aside class='notes'>
+                For default export we place 'export default' before exporting thing.
+                And in the importing place we point name without curly braces.
+            </aside>
+          </section>
+        </section>
+        <section class="slide-7">
+          <h2>The End</h2>
+        </section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				markdown: {
+		smartypants: true
+	},
+	controls: true,
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true },
+				]
+			});
+		</script>
+	</body>
+</html>
