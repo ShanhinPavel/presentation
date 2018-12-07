@@ -93,12 +93,18 @@
               <code data-trim data-noescape>
                 // We assign value of IIFE to variable
                 let animal = function() {
+                  // Declare variables and assign function to them
+                  let getNameOfAnimal = function() {
+                    return 'tiger'
+                  };
+                  let getSound = function() {
+                    return 'Roar!';
+                  };
+                  // Return object with methods
                   return {
-                    nameOfAnimal: 'tiger';
-                    getSound: function() {
-                      return "Roar!";
-                    }
-                  }
+                    nameOfAnimal: getNameOfAnimal,
+                    getSound: getSound
+                  };
                 }();
                 
                 // Use returned object
@@ -117,9 +123,9 @@
           <section class="slide-5-1">
               <h3>THE READY IMPLEMENTATION OF MODULES</h3>
               <ul>
-                <li>AMD (Asynchronus Module Definition)</li>
-                <li>CommonJS</li>
-                <li>Modules ECMAScript 2015</li>
+                <li class='fragment' data-fragment-index='1'>AMD (Asynchronus Module Definition)</li>
+                <li class='fragment' data-fragment-index='2'>CommonJS</li>
+                <li class='fragment' data-fragment-index='3'>Modules ECMAScript 2015</li>
               </ul>
               <aside class="notes">
                   1.Where it mainly uses<br>
@@ -204,6 +210,15 @@
                   Such way, to support in all versions of browsers we have to use bundlers.
               </aside>
             </section>
+          <section class='slide-6-2-1'>
+            <h3>export / import</h3>
+            <ul>
+              <li>classes</li>
+              <li>functions</li>
+              <li>objects</li>
+              <li>variables</li>
+            </ul>
+          </section>
           <section class='slide-6-3'>
             <h3>Including modules ECMAScript 2015 in browser</h3>  
             <pre>
@@ -221,7 +236,7 @@
             </aside>
           </section>
           <section class='slide-6-4'> 
-            <h3>Export stuffs by writing word export before exporting thing.</h3>
+            <h3>Export by writing word "export" before exporting thing.</h3>
             <pre>
               <code data-trim data-noescape>
                 // operations.js
@@ -243,6 +258,26 @@
                 We can export by writing word 'export' before exporting thing.
             </aside>
           </section>
+          <section>
+            <h2>Import all</h2>
+            <pre>
+              <code data-trim data-noescape>
+                  // operations.js
+                export function sum(a, b) {
+                  return a + b;
+                }
+                export function multiply(a, b) {
+                  return a * b;
+                }
+
+                // index.js
+                import * as functions from './operations';
+                
+                functions.sum(2, 3); // 5
+                functions.myltiply(2, 3) // 6
+              </code>
+          </pre>
+          </section>
           <section class='slide-6-5'>
             <h3>Export by writing importing things in the end of the file</h3>
             <pre>
@@ -258,7 +293,7 @@
                     
                 // index.js
                 import { sum, multiply } from './operations';
-                    
+
                 sum(2, 3); // 5
                 myltiply(2, 3) // 6
               </code>
