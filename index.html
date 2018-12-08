@@ -235,7 +235,28 @@
                 between script tags and use 
             </aside>
           </section>
-          <section class='slide-6-4'> 
+          <section>
+            <h3>Export methods</h3>
+            <pre>
+              <code data-trim data-noescape>
+                /**  Writing word export before declarations **/
+                // module.js
+                export function sum(a, b) {
+                  return a + b;
+                } 
+
+                /** Writing word export in the end of a file
+                // module.js
+                function sum(a, b) {
+                  return a + b;
+                }
+                let string = 'Hello';
+
+                export { sum, string };
+              </code>
+            </pre>
+          </section>
+          <!--<section class='slide-6-4'> 
             <h3>Export by writing word "export" before exporting thing.</h3>
             <pre>
               <code data-trim data-noescape>
@@ -257,8 +278,28 @@
             <aside class="notes">
                 We can export by writing word 'export' before exporting thing.
             </aside>
-          </section>
+          </section>-->
           <section>
+            <h2>Import methods</h2>
+            <pre>
+              <code data-trim data-noescape>
+                // Common import
+                // index.js
+                import { sum, multiply } from './operations.js'
+
+                sum(9, 7); //16
+                multiply(3, 5); //15
+
+                //Import all
+                //index.js
+                import * as example from './operations'
+                
+                example.sum(5, 3); //8
+                example.multiply(5, 3); //15
+              </code>
+            </pre>
+          </section>
+          <!--<section>
             <h2>Import all</h2>
             <pre>
               <code data-trim data-noescape>
@@ -331,9 +372,9 @@
                 in curly braces we have to write what we will export and what name 
                 they will have.
             </aside>
-          </section>
+          </section> -->
           <section class='slide-6-7'>
-            <h3>Default export</h3>
+            <h3>Default export / import</h3>
             <pre>
               <code data-trim data-noescape>
                 // operations.js
